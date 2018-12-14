@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ADCService } from "../../services/ADCService";
-
+import exportJson from './../../models/export.json';
 import "./login.component.css";
 
 import "@elf/polyfills";
@@ -9,6 +9,7 @@ import "@elf/coral-input";
 import "@elf/elf-theme-elemental/light/coral-button";
 import "@elf/elf-theme-elemental/light/coral-input";
 import { ADCRequest, ADCResponse } from "../../models";
+import { ExportService } from "../../services/export.service";
 
 export class Login extends Component {
   public userName: string = "Sergii";
@@ -63,7 +64,10 @@ export class Login extends Component {
   };
 
   exportToExcel = () => {
-
+    console.log('exportJson',exportJson)
+    ExportService.exportToFile(exportJson)
+    .then((res) => console.log(res))
+    .catch((error) => console.log(error));
   };
 
   render() {

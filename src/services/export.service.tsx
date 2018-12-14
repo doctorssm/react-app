@@ -1,22 +1,24 @@
-import { ADCRequest, ADCResponse } from './../models/index';
+import { saveAs } from 'file-saver';
 
 export class ExportService {
-	private static url = '/datacloud/snapshot/rest/v2/select';
+  private static url = "/Apps/ExcelExport/JsonToExcel";
 
-	public static sendRequest(request: ADCRequest): Promise<ADCResponse> {
-		const searchParams = (() => {
-			const temp: string[] = [];
-			Object.keys(request).forEach(key => temp.push([encodeURIComponent(key), encodeURIComponent(request[key])].join('=')));
-			return temp.join('&');
-		})();
-		return fetch(this.url, {
-			headers: {
-				Accept: 'application/json, text/plain, */*',
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			credentials: 'same-origin',
-			method: 'POST',
-			body: searchParams
-		}).then(data => data.json());
-	}
+  public static exportToFile(data: any): Promise<void> {
+    return fetch(this.url, {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin',
+        method: 'POST',
+        body: JSON.stringify(data)
+    })
+    .then((res) => res.blob())
+    .then((response: any) => {
+        console.log('ressssponse', response);
+        
+      const file = new Blob([response], { type: "arraybuffer" });
+      saveAs(file, 'Sergii-Workbook.xlsx');
+    });
+  }
 }

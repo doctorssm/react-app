@@ -1,5 +1,4 @@
 import { ADCRequest, ADCResponse } from './../models/index';
-
 export class ADCService {
 	private static url = '/datacloud/snapshot/rest/v2/select';
 
