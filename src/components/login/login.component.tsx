@@ -62,11 +62,16 @@ export class Login extends Component {
     this.password = e.target.value;
   };
 
+  exportToExcel = () => {
+
+  };
+
   render() {
     return (
       <div className="inline-block">
         {this.state.isLoggedIn ? (
           <div>
+            <button onClick={this.exportToExcel}>Export to Excel</button>
             <section className="section-data">
               <button onClick={this.load}>Load Data</button>
             </section>
